@@ -1,0 +1,30 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: ubuntu:16.04
+    dockerfile: ../resources/playbooks/Dockerfile.j2
+    capabilities:
+      - NET_ADMIN
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        ip_route_configs:
+          eth0:
+            - gateway: "{{ ansible_default_ipv4.gateway }}"
+              network: "{{ ansible_default_ipv4.network }}/24"
+  lint:
+    name: ansible-lint
+  playbooks:
+    converge: ../resources/playbooks/playbook.yml
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint

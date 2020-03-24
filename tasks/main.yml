@@ -1,0 +1,27 @@
+---
+- name: Get interface list
+  set_fact:
+    interfaces: "{{ interfaces | default([]) \
+      + [ (hostvars[inventory_hostname]['ansible_%s' | format(item)]) | combine({'name': item}) ] }}"
+  with_items: "{{ ansible_interfaces }}"
+
+- name: Ensure /etc/network/if-up.d is present
+  file:
+    path: /etc/network/if-up.d
+    state: directory
+
+- name: Ensure /etc/network/if-down.d is present
+  file:
+    path: /etc/network/if-down.d
+    state: directory
+
+- name: Get configured routes
+  command: ip route
+  register: ip_route_result
+  changed_when: no
+
+- name: Configure routes for devices
+  include: device.yml
+  loop_control:
+    loop_var: ip_route_config
+  with_dict: "{{ ip_route_configs }}"

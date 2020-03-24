@@ -1,0 +1,19 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Get routes
+      command: ip route
+      changed_when: no
+      register: ip_route_result
+
+    - name: Set expected route
+      set_fact:
+        expected_route: "{{ ip_route_configs.eth0[0].network }} via {{ ip_route_configs.eth0[0].gateway }} \
+         dev eth0  proto kernel  src {{ ansible_default_ipv4.address }}"
+
+    - name: Verify ip route is present
+      assert:
+        that:
+          - expected_route in ip_route_result.stdout
+        fail_msg: "Expected route {{ expected_route }} not found in {{ ip_route_result.stdout }}."

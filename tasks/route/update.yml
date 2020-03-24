@@ -1,0 +1,13 @@
+---
+- name: Delete route
+  changed_when: no
+  command: "{{ route_if_down_script }}"
+  environment:
+    IFACE: "{{ interface.name }}"
+  when: route_network in ip_route_result.stdout
+
+- name: Add route
+  changed_when: no
+  command: "{{ route_if_up_script }}"
+  environment:
+    IFACE: "{{ interface.name }}"

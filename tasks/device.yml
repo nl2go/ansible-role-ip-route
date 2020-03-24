@@ -1,0 +1,8 @@
+---
+- name: "Determine interface for the device"
+  set_fact:
+    interface: "{{ interfaces | selectattr('name', 'equalto', ip_route_config.key) | first }}"
+
+- name: Configure routes
+  include: route/main.yml
+  with_items: "{{ ip_route_config.value }}"

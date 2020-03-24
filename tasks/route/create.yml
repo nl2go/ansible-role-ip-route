@@ -1,0 +1,16 @@
+---
+- name: Copy if-up script
+  template:
+    src: templates/if-up.j2
+    dest: "{{ route_if_up_script }}"
+    mode: 0755
+  when: route_state == 'present'
+  notify: update route
+
+- name: Copy if-down script
+  template:
+    src: templates/if-down.j2
+    dest: "{{ route_if_down_script }}"
+    mode: 0755
+  when: route_state == 'present'
+  notify: update route

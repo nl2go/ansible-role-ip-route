@@ -1,0 +1,7 @@
+#!/bin/sh
+
+{{ ansible_managed|comment }}
+
+if [ "$IFACE" = "{{ interface.name }}" ]; then
+    ip route add {{ item.network }} via {{ item.gateway }} dev {{ interface.device }} proto kernel src {{ interface.ipv4.address }}
+fi
