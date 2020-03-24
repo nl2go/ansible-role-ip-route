@@ -21,7 +21,7 @@ IP routes are defined using `ip_route_configs` variable.
           network: 172.0.1.0/24
 
 The configuration above manages the route for the network `172.0.1.0/24` using the
-gateway `172.0.1.1` over device `eth0`.
+gateway `172.0.1.1` over the device `eth0`.
 
 The configuration is persisted within `/etc/network/{if-up.d|if-down.d}`.  
 
@@ -30,7 +30,7 @@ The configuration is persisted within `/etc/network/{if-up.d|if-down.d}`.
         - network: 172.0.1.0/24
           state: absent
 
-Use `state: absent` to remove a certain route. Routes are identified by the `network`.
+Use `state: absent` to remove a specific route. Routes are identified by the `network`.
 
 ## Tags
 
