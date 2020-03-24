@@ -7,8 +7,8 @@
 - name: Set route vars
   set_fact:
     route_state: "{{ item.state | default('present') }}"
-    route_if_up_script: "/etc/network/if-up.d/{{ interface.name }}-{{ route_id }}"
-    route_if_down_script: "/etc/network/if-down.d/{{ interface.name }}-{{ route_id }}"
+    route_if_up_script: "/etc/network/if-up.d/{{ interface.name | regex_replace('\\.', '-') }}-{{ route_id }}"
+    route_if_down_script: "/etc/network/if-down.d/{{ interface.name | regex_replace('\\.', '-') }}-{{ route_id }}"
 
 - name: Create route
   include: create.yml
