@@ -15,6 +15,6 @@
   when: route_state == 'present'
   register: if_down_copy_result
 
-- name: "Update route {{ item.network }}"
+- name: "Update route {{ route_network }}"
   include_tasks: route/update.yml
   when: if_up_copy_result.changed or if_down_copy_result.changed
