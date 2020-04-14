@@ -5,7 +5,7 @@
     dest: "{{ route_if_up_script }}"
     mode: 0755
   when: route_state == 'present'
-  notify: update route
+  register: if_up_copy_result
 
 - name: Copy if-down script
   template:
@@ -13,4 +13,8 @@
     dest: "{{ route_if_down_script }}"
     mode: 0755
   when: route_state == 'present'
-  notify: update route
+  register: if_down_copy_result
+
+- name: "Update route {{ item.network }}"
+  include_tasks: route/update.yml
+  when: if_up_copy_result.changed or if_down_copy_result.changed
