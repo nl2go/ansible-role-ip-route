@@ -32,6 +32,14 @@ The configuration is persisted within `/etc/network/{if-up.d|if-down.d}`.
 
 Use `state: absent` to remove a specific route. Routes are identified by the `network`.
 
+In some setups it may be required to override the interface_name the script is listinging to (e.g. proxmox lxc container):
+
+    ip_route_configs:
+      eth0:
+        - gateway: 172.0.1.1
+          network: 172.0.1.0/24
+          interface_name: --all
+
 ## Tags
 
 Tags can be used to limit the role execution to a particular task module. Following tags are available:

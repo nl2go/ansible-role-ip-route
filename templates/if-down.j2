@@ -2,6 +2,6 @@
 
 {{ ansible_managed|comment }}
 
-if [ "$IFACE" = "{{ interface.name }}" ]; then
+if [ "$IFACE" = "{{ item.interface_name | default(interface.name) }}" ]; then
     ip route del {{ item.network }}
 fi
