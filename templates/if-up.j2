@@ -2,6 +2,6 @@
 
 {{ ansible_managed|comment }}
 
-if [ "$IFACE" = "{{ interface.name }}" ]; then
+if [ "$IFACE" = "{{ item.interface_name | default(interface.name) }}" ]; then
     ip route add {{ item.network }} via {{ item.gateway }} dev {{ interface.device }} proto kernel src {{ interface.ipv4.address }}
 fi

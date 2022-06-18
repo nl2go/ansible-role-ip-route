@@ -1,0 +1,7 @@
+exclude_paths:
+  - ./tests/requirements
+  - .github
+
+warn_list:
+  - experimental  # all rules tagged as experimental
+  - fqcn-builtins  # Use FQCN for builtin actions.

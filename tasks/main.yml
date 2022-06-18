@@ -21,7 +21,7 @@
   changed_when: no
 
 - name: Configure routes for devices
-  include: device.yml
+  include_tasks: device.yml
   loop_control:
     loop_var: ip_route_config
   with_dict: "{{ ip_route_configs }}"

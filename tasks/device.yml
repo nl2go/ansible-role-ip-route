@@ -4,5 +4,5 @@
     interface: "{{ interfaces | selectattr('name', 'equalto', ip_route_config.key) | first }}"
 
 - name: Configure routes
-  include: route/main.yml
+  include_tasks: route/main.yml
   with_items: "{{ ip_route_config.value }}"
