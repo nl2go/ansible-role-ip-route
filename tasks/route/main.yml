@@ -11,9 +11,9 @@
     route_if_down_script: "/etc/network/if-down.d/{{ interface.name | regex_replace('\\.', '-') }}-{{ route_id }}"
 
 - name: Create route
-  include: create.yml
+  include_tasks: create.yml
   when: route_state == 'present'
 
 - name: Delete route
-  include: delete.yml
+  include_tasks: delete.yml
   when: route_state != 'present'
