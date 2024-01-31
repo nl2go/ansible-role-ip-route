@@ -2,7 +2,7 @@
 - name: Get interface list
   set_fact:
     interfaces: "{{ interfaces | default([]) \
-      + [ (hostvars[inventory_hostname]['ansible_%s' | format(item)]) | combine({'name': item}) ] }}"
+      + [ (hostvars[inventory_hostname]['ansible_%s' | format(item) | regex_replace('-', '_') ]) | combine({'name': item}) ] }}"
   with_items: "{{ ansible_interfaces }}"
 
 - name: Ensure /etc/network/if-up.d is present
